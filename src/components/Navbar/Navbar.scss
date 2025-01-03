@@ -1,0 +1,130 @@
+@import '../../styles/_variables';
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1.25rem 0;
+    background: $primary-color;
+    transition: all 0.3s ease;
+
+    &.scrolled {
+        padding: 1rem 0;
+        background: darken($primary-color, 5%);
+        box-shadow: 0 4px 30px rgba($gray-800, 0.15);
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 4rem;
+
+        @media (max-width: 768px) {
+            padding: 0 2rem;
+        }
+    }
+
+    .navbar-brand {
+        text-decoration: none;
+        
+        .brand-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            color: $white;
+            
+            .brand-highlight {
+                position: relative;
+                color: lighten($primary-color, 40%);
+                
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -3px;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    background: $white;
+                    border-radius: 2px;
+                }
+            }
+        }
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 3rem;
+        margin: 0 2rem;
+
+        .nav-link-wrapper {
+            position: relative;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: $white;
+                transition: width 0.3s ease;
+            }
+
+            &:hover::after {
+                width: 100%;
+            }
+
+            a {
+                color: rgba($white, 0.9);
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 1.05rem;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: $white;
+                }
+            }
+        }
+    }
+
+    .nav-auth {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        .btn-link {
+            color: rgba($white, 0.9);
+            font-weight: 500;
+            text-decoration: none;
+            
+            &:hover {
+                color: $white;
+            }
+        }
+
+        .btn-primary {
+            background: $white;
+            color: $primary-color;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            
+            &:hover {
+                background: rgba($white, 0.9);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba($black, 0.2);
+            }
+        }
+    }
+} 

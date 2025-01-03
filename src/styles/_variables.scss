@@ -1,0 +1,61 @@
+// Color palette
+$primary-color: #1d4ed8;
+$primary-light: #3b82f6;
+$secondary-color: #64748b;
+$success-color: #22c55e;
+$danger-color: #ef4444;
+$warning-color: #f59e0b;
+$info-color: #3b82f6;
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e2e8f0;
+$gray-400: #d4dbe4;
+$gray-500: #b3bcc7;
+$gray-600: #475569;
+$gray-700: #334155;
+$gray-800: #242f3d;
+$white: #fff;
+$black: #000;
+
+// Font
+$font-family: 'Inter', sans-serif;
+
+// Add modern CSS reset
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    background: $white;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+// Modern button styles
+.btn {
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    
+    &-primary {
+        background: linear-gradient(45deg, $primary-color, darken($primary-color, 10%));
+        border: none;
+        color: $white;
+        
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba($primary-color, 0.3);
+        }
+    }
+}

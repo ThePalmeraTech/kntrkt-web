@@ -1,0 +1,108 @@
+@import '../../styles/_variables';
+@import '../../styles/_cta';
+
+.features-page {
+    .features-hero {
+        background: linear-gradient(135deg, $primary-color, darken($primary-color, 20%));
+        padding: 8rem 0 6rem;
+        text-align: center;
+        color: $white;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba($white, 0.1) 1px, transparent 0);
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .lead {
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    }
+
+    .features-list {
+        padding: 6rem 0;
+        background: $gray-50;
+
+        .feature-card {
+            background: $white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba($gray-800, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: translateY(-10px);
+            }
+
+            .feature-icon {
+                font-size: 3rem;
+                color: $primary-color;
+                margin-bottom: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                color: $gray-800;
+            }
+
+            p {
+                color: $gray-600;
+                margin-bottom: 1.5rem;
+                line-height: 1.6;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                margin-top: 1.5rem;
+            }
+        }
+    }
+
+    .features-cta {
+        @extend .templates-cta;
+        margin-top: 4rem;
+
+        &::before {
+            opacity: 0.15;
+        }
+
+        h2 {
+            font-size: clamp(2.25rem, 4vw, 3rem);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .features-page {
+        .features-hero {
+            padding: 6rem 0 4rem;
+        }
+
+        .features-list {
+            padding: 4rem 0;
+        }
+
+        .features-cta {
+            margin-top: 2rem;
+        }
+    }
+}

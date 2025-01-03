@@ -1,0 +1,81 @@
+@import '../../../styles/_variables';
+
+.features-section {
+    background: linear-gradient(180deg, $white 0%, $gray-50 100%);
+    padding: 6rem 0;
+    
+    .features-header {
+        max-width: 800px;
+        margin: 0 auto 4rem;
+
+        h2 {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, $primary-color, darken($primary-color, 15%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-subtitle {
+            font-size: 1.2rem;
+            color: $gray-600;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+    }
+
+    .feature-card {
+        background: $white;
+        border-radius: 20px;
+        padding: 2rem;
+        height: 100%;
+        border: 1px solid rgba($primary-color, 0.1);
+        box-shadow: 
+            0 10px 30px rgba($gray-800, 0.05),
+            0 0 0 1px rgba($primary-color, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 35px rgba($gray-800, 0.1),
+                0 0 0 1px rgba($primary-color, 0.1);
+        }
+
+        img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: $gray-800;
+            font-weight: 600;
+        }
+
+        p {
+            color: $gray-600;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+    }
+
+    .row {
+        gap: 2rem;
+        
+        @media (min-width: 992px) {
+            gap: 0;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .col-md-6 {
+            margin-bottom: 2rem;
+        }
+    }
+}

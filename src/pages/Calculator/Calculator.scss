@@ -1,0 +1,214 @@
+@import '../../styles/_variables';
+@import '../../styles/_cta';
+
+.calculator-page {
+    .calculator-hero {
+        background: linear-gradient(135deg, $primary-color, darken($primary-color, 20%));
+        padding: 8rem 0 6rem;
+        color: $white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba($white, 0.1) 1px, transparent 0);
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    }
+
+    .calculator-content {
+        padding: 6rem 0;
+        background: $gray-50;
+
+        .calculator-form {
+            background: $white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba($gray-800, 0.1);
+
+            h2 {
+                font-size: 1.75rem;
+                color: $gray-800;
+                margin-bottom: 2rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+
+                label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    color: $gray-700;
+                    font-weight: 500;
+                }
+
+                input {
+                    width: 100%;
+                    padding: 1rem;
+                    border: 2px solid $gray-200;
+                    border-radius: 10px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+
+                    &:focus {
+                        outline: none;
+                        border-color: $primary-color;
+                        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+                    }
+
+                    &::-webkit-inner-spin-button,
+                    &::-webkit-outer-spin-button {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .savings-results {
+            h2 {
+                font-size: 1.75rem;
+                color: $gray-800;
+                margin-bottom: 2rem;
+            }
+
+            .time-period-selector {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 2rem;
+
+                .period-btn {
+                    background: $gray-200;
+                    border: none;
+                    padding: 0.75rem 1.5rem;
+                    margin: 0 0.5rem;
+                    border-radius: 20px;
+                    font-size: 1rem;
+                    color: $gray-700;
+                    cursor: pointer;
+                    transition: background 0.3s ease, color 0.3s ease;
+
+                    &.active {
+                        background: $primary-color;
+                        color: $white;
+                    }
+
+                    &:hover {
+                        background: $primary-color;
+                        color: $white;
+                    }
+                }
+            }
+
+            .savings-card {
+                background: $white;
+                padding: 2rem;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba($gray-800, 0.1);
+
+                .savings-item {
+                    padding: 1.5rem;
+                    border-bottom: 1px solid $gray-100;
+
+                    h3 {
+                        font-size: 1.125rem;
+                        color: $gray-700;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .amount {
+                        font-size: 2rem;
+                        font-weight: 700;
+                        color: $primary-color;
+                        margin-bottom: 0.25rem;
+                    }
+
+                    .detail {
+                        font-size: 0.875rem;
+                        color: $gray-600;
+                    }
+                }
+
+                .total-savings {
+                    padding: 1.5rem;
+                    background: lighten($primary-color, 45%);
+                    border-radius: 10px;
+                    margin-top: 1.5rem;
+
+                    h3 {
+                        font-size: 1.25rem;
+                        color: $gray-800;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .amount {
+                        font-size: 2.5rem;
+                        font-weight: 800;
+                        color: $primary-color;
+                        margin-bottom: 0.25rem;
+                    }
+
+                    .detail {
+                        font-size: 0.875rem;
+                        color: $gray-700;
+                    }
+                }
+            }
+        }
+    }
+
+    .calculator-cta {
+        @extend .templates-cta;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .calculator-page {
+        .calculator-content {
+            .calculator-form,
+            .savings-results {
+                margin-bottom: 2rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .calculator-page {
+        .calculator-hero {
+            padding: 6rem 1rem 4rem;
+        }
+
+        .calculator-content {
+            padding: 4rem 1rem;
+        }
+
+        .savings-results {
+            .savings-card {
+                .savings-item,
+                .total-savings {
+                    .amount {
+                        font-size: 1.75rem;
+                    }
+                }
+            }
+        }
+    }
+} 

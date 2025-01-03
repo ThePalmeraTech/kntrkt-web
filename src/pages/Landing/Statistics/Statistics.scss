@@ -1,0 +1,22 @@
+@import '../../../styles/variables';
+
+.statistics-section {
+    padding: 4rem 0;
+    background-color: $gray-50;
+
+    .stat-item {
+        text-align: center;
+        padding: 2rem;
+
+        h3 {
+            font-size: 2.5rem;
+            color: $primary-color;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: $secondary-color;
+            margin: 0;
+        }
+    }
+}
