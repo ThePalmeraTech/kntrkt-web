@@ -44,5 +44,5 @@ KNTRKT was designed and developed by Hanaley Mosley, combining modern UI/UX prin
 ## 📞 Support & Contact
 
 For inquiries and support:
-- Email: palmeratech7@gmail.com.com
+- Email: palmeratech7@gmail.com
 - LinkedIn: [Hanaley Mosley](https://linkedin.com/in/hanaley-mosley)
