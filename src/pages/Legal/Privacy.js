@@ -1,106 +1,100 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO/SEO';
 import Footer from '../Landing/Footer/Footer';
 import './Legal.scss';
 
 const Privacy = () => {
+    const sections = [
+        {
+            title: "Data Collection",
+            content: "We collect information that you provide directly to us, including personal information, account details, and usage data to improve our services.",
+            icon: "📊",
+            items: ["Personal Information", "Usage Data", "Device Information", "Payment Details"]
+        },
+        {
+            title: "Data Usage",
+            content: "Your data is used to provide and improve our services, communicate with you, and ensure platform security.",
+            icon: "🔄",
+            items: ["Service Improvement", "Communication", "Security", "Analytics"]
+        },
+        {
+            title: "Data Protection",
+            content: "We implement robust security measures to protect your personal information from unauthorized access and disclosure.",
+            icon: "🛡️",
+            items: ["Encryption", "Access Controls", "Regular Audits", "Secure Storage"]
+        },
+        {
+            title: "Your Rights",
+            content: "You have the right to access, correct, or delete your personal information, and to object to its processing.",
+            icon: "✅",
+            items: ["Access Rights", "Correction Rights", "Deletion Rights", "Processing Rights"]
+        }
+    ];
+
     return (
-        <div className="legal-page">
-            <section className="legal-hero">
-                <div className="container">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h1>Privacy Policy</h1>
-                        <p className="lead">Last updated: March 2024</p>
-                    </motion.div>
-                </div>
-            </section>
+        <>
+            <SEO 
+                title="Privacy Policy"
+                description="Learn how KNTRKT protects and handles your personal information. Our commitment to your privacy and data security."
+                keywords="privacy policy, data protection, GDPR compliance, data security, user privacy"
+            />
+            <div className="legal-page privacy-page">
+                <section className="legal-hero">
+                    <div className="container">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="hero-content"
+                        >
+                            <h1>Privacy Policy</h1>
+                            <p>Last updated: {new Date().toLocaleDateString()}</p>
+                        </motion.div>
+                    </div>
+                </section>
 
-            <section className="legal-content">
-                <div className="container">
-                    <motion.div
-                        className="content-wrapper"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                    >
-                        <h2>1. Information We Collect</h2>
-                        <p>
-                            We collect information that you provide directly to us, including:
-                        </p>
-                        <ul>
-                            <li>Personal identification information</li>
-                            <li>Contact information</li>
-                            <li>Payment details</li>
-                            <li>Usage data and preferences</li>
-                        </ul>
+                <section className="legal-content">
+                    <div className="container">
+                        <div className="content-wrapper">
+                            <motion.div 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                                className="introduction"
+                            >
+                                <p>Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information.</p>
+                            </motion.div>
 
-                        <h2>2. How We Use Your Information</h2>
-                        <p>
-                            We use the collected information for:
-                        </p>
-                        <ul>
-                            <li>Providing and maintaining our services</li>
-                            <li>Processing payments</li>
-                            <li>Communicating with you</li>
-                            <li>Improving our services</li>
-                            <li>Complying with legal obligations</li>
-                        </ul>
+                            <div className="sections-grid">
+                                {sections.map((section, index) => (
+                                    <motion.div
+                                        key={section.title}
+                                        className="section-card"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                                    >
+                                        <div className="section-icon">{section.icon}</div>
+                                        <h2>{section.title}</h2>
+                                        <p>{section.content}</p>
+                                        <ul className="items-list">
+                                            {section.items.map((item, i) => (
+                                                <li key={i}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-                        <h2>3. Data Security</h2>
-                        <p>
-                            We implement appropriate security measures to protect your personal information. 
-                            However, no method of transmission over the internet is 100% secure.
-                        </p>
-
-                        <h2>4. Data Sharing</h2>
-                        <p>
-                            We may share your information with:
-                        </p>
-                        <ul>
-                            <li>Service providers and business partners</li>
-                            <li>Legal authorities when required by law</li>
-                            <li>Other parties with your consent</li>
-                        </ul>
-
-                        <h2>5. Your Rights</h2>
-                        <p>
-                            You have the right to:
-                        </p>
-                        <ul>
-                            <li>Access your personal data</li>
-                            <li>Correct inaccurate data</li>
-                            <li>Request deletion of your data</li>
-                            <li>Object to data processing</li>
-                        </ul>
-
-                        <h2>6. Cookies Policy</h2>
-                        <p>
-                            We use cookies and similar tracking technologies to improve user experience 
-                            and collect usage data.
-                        </p>
-
-                        <h2>7. Changes to Privacy Policy</h2>
-                        <p>
-                            We may update this privacy policy from time to time. We will notify you of any 
-                            changes by posting the new policy on this page.
-                        </p>
-
-                        <h2>8. Contact Us</h2>
-                        <p>
-                            For any questions about this Privacy Policy, please contact us at:
-                            <br />
-                            <a href="mailto:privacy@kntrkt.com">privacy@kntrkt.com</a>
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            <Footer />
-        </div>
+                <Footer />
+            </div>
+        </>
     );
 };
 

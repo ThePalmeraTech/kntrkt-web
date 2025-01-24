@@ -1,7 +1,7 @@
 @import '../../../styles/_variables';
 
 .footer-section {
-    background: $gray-800;
+    background: $primary-dark;
     color: $white;
     padding: 6rem 0 3rem;
     position: relative;
@@ -11,7 +11,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background-image: radial-gradient(circle at 1px 1px, rgba($white, 0.05) 1px, transparent 0);
+        background-image: radial-gradient(circle at 1px 1px, rgba($primary-color, 0.05) 1px, transparent 0);
         background-size: 20px 20px;
         pointer-events: none;
     }
@@ -28,9 +28,36 @@
         .logo {
             display: block;
             margin-bottom: 1.5rem;
+            text-decoration: none;
             
-            img {
-                height: 40px;
+            .logo-text {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 2rem;
+                font-weight: 700;
+                color: $white;
+                letter-spacing: -0.5px;
+                
+                .logo-k {
+                    color: $primary-color;
+                    position: relative;
+                    
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 2px;
+                        left: 0;
+                        width: 100%;
+                        height: 2px;
+                        background: $primary-color;
+                        border-radius: 2px;
+                    }
+                }
+                
+                .logo-dot {
+                    color: $primary-color;
+                    font-size: 2.25rem;
+                    margin-left: 1px;
+                }
             }
         }
 
@@ -52,13 +79,13 @@
                 align-items: center;
                 justify-content: center;
                 border-radius: 50%;
-                background: rgba($white, 0.1);
+                background: rgba($primary-color, 0.1);
                 color: $white;
                 transition: all 0.3s ease;
 
                 &:hover {
                     background: $primary-color;
-                    transform: translateY(-2px);
+                    color: $primary-dark;
                 }
             }
         }
@@ -66,7 +93,7 @@
 
     .footer-links {
         h5 {
-            color: $white;
+            color: $primary-color;
             font-size: 1.125rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
@@ -87,7 +114,7 @@
                     display: inline-block;
 
                     &:hover {
-                        color: $white;
+                        color: $primary-color;
                     }
                 }
             }
@@ -115,8 +142,8 @@
 
                 input {
                     flex: 1;
-                    background: rgba($white, 0.1);
-                    border: 1px solid rgba($white, 0.2);
+                    background: rgba($primary-color, 0.1);
+                    border: 1px solid rgba($primary-color, 0.2);
                     padding: 0.75rem 1rem;
                     border-radius: 8px;
                     color: $white;
@@ -140,6 +167,45 @@
     @media (max-width: 992px) {
         .footer-main {
             grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: $breakpoint-md) {
+        padding: 4rem 1.5rem 2rem;
+
+        .footer-main {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .footer-brand {
+            text-align: center;
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        .footer-links {
+            text-align: center;
+            
+            ul li {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            gap: 2rem;
+            text-align: center;
+
+            .newsletter-form {
+                flex-direction: column;
+                
+                input, button {
+                    width: 100%;
+                }
+            }
         }
     }
 } 

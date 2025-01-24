@@ -7,21 +7,13 @@ const Footer = () => {
     const footerLinks = {
         product: [
             { name: 'Features', path: '/features' },
-            { name: 'Pricing', path: '/pricing' },
-            { name: 'Templates', path: '/templates' },
-            { name: 'Integrations', path: '/integrations' },
+            { name: 'Calculator', path: '/calculator' },
+            // { name: 'Pricing', path: '/pricing' }, // Temporalmente oculto
+            { name: 'Early Access', path: '/early-access' },
         ],
         company: [
             { name: 'About Us', path: '/about' },
-            { name: 'Careers', path: '/careers' },
-            { name: 'Blog', path: '/blog' },
-            { name: 'Press Kit', path: '/press' },
-        ],
-        resources: [
-            { name: 'Documentation', path: '/docs' },
-            { name: 'Help Center', path: '/help' },
-            { name: 'Community', path: '/community' },
-            { name: 'API Reference', path: '/api' },
+            { name: 'Help', path: '/help' },
         ],
         legal: [
             { name: 'Privacy Policy', path: '/privacy' },
@@ -35,11 +27,14 @@ const Footer = () => {
                 <div className="footer-main">
                     <div className="footer-brand">
                         <Link to="/" className="logo">
-                            <img src="/logo-white.svg" alt="Kntrkt" />
+                            <span className="logo-text">
+                                <span className="logo-k">K</span>NTRKT
+                                <span className="logo-dot">.</span>
+                            </span>
                         </Link>
                         <p>Empowering creatives with smart contract and payment solutions.</p>
                         <div className="social-links">
-                            {['twitter', 'linkedin', 'instagram', 'github'].map(platform => (
+                            {['twitter', 'linkedin'].map(platform => (
                                 <a key={platform} href={`https://${platform}.com/kntrkt`} target="_blank" rel="noopener noreferrer">
                                     <i className={`fab fa-${platform}`}></i>
                                 </a>
@@ -73,19 +68,8 @@ const Footer = () => {
                             <button type="submit" className="btn btn-primary">Subscribe</button>
                         </form>
                     </div>
-                    <div className="footer-links">
-                        <h5>Legal</h5>
-                        <ul>
-                            {footerLinks.legal.map(link => (
-                                <motion.li 
-                                    key={link.name}
-                                    whileHover={{ x: 5 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    <Link to={link.path}>{link.name}</Link>
-                                </motion.li>
-                            ))}
-                        </ul>
+                    <div className="copyright">
+                        <p>&copy; {new Date().getFullYear()} KNTRKT. All rights reserved.</p>
                     </div>
                 </div>
             </div>

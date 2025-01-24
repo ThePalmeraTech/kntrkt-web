@@ -27,8 +27,8 @@ const Hero = () => {
                             —giving you back time to focus on your business and what matters most.
                         </p>
                         <div className="hero-cta">
-                            <Link to="/register" className="btn btn-primary btn-lg">
-                                Start Free Trial
+                            <Link to="/early-access" className="btn btn-primary btn-lg">
+                                Join Early Access
                             </Link>
                             <Link to="/demo" className="btn btn-outline-primary btn-lg">
                                 Watch Video

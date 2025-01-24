@@ -3,7 +3,7 @@
 
 .about-page {
     .about-hero {
-        background: linear-gradient(135deg, $primary-color, darken($primary-color, 20%));
+        background: linear-gradient(135deg, $primary-dark 0%, darken($primary-dark, 10%) 100%);
         padding: 8rem 0 6rem;
         text-align: center;
         color: $white;
@@ -14,22 +14,25 @@
             content: '';
             position: absolute;
             inset: 0;
-            background-image: radial-gradient(circle at 1px 1px, rgba($white, 0.1) 1px, transparent 0);
+            background-image: radial-gradient(circle at 1px 1px, rgba($primary-color, 0.1) 1px, transparent 0);
             background-size: 20px 20px;
             pointer-events: none;
         }
 
         h1 {
-            font-size: clamp(3rem, 6vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            font-family: $font-family-primary;
         }
 
         .lead {
-            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
             opacity: 0.9;
             max-width: 800px;
             margin: 0 auto;
+            color: $soft-sand;
+            line-height: 1.6;
         }
     }
 
@@ -40,16 +43,16 @@
         h2 {
             font-size: clamp(2rem, 4vw, 2.5rem);
             margin-bottom: 2rem;
-            background: linear-gradient(45deg, $primary-color, darken($primary-color, 15%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: $primary-dark;
+            font-family: $font-family-primary;
         }
 
-        p {
-            font-size: 1.125rem;
+        .mission-text {
+            font-size: 1.25rem;
             line-height: 1.8;
-            color: $gray-700;
-            margin-bottom: 1.5rem;
+            color: $slate-gray;
+            margin-bottom: 2rem;
+            font-family: $font-family-secondary;
         }
     }
 
@@ -164,6 +167,44 @@
             p {
                 color: $gray-600;
                 line-height: 1.6;
+            }
+        }
+    }
+
+    .about-quote {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, rgba($primary-color, 0.05) 0%, rgba($primary-dark, 0.05) 100%);
+
+        .quote-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .quote-content {
+            blockquote {
+                font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+                line-height: 1.8;
+                color: $primary-dark;
+                font-style: italic;
+                margin-bottom: 2rem;
+                position: relative;
+                font-family: $font-family-secondary;
+            }
+
+            .quote-author {
+                h4 {
+                    font-size: 1.25rem;
+                    color: $primary-color;
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    font-family: $font-family-primary;
+                }
+
+                .position {
+                    color: $slate-gray;
+                    font-size: 1rem;
+                }
             }
         }
     }

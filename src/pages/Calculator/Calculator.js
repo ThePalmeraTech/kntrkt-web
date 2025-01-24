@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Footer from '../Landing/Footer/Footer';
 import './Calculator.scss';
+import { Helmet } from 'react-helmet';
+import SEO from '../../components/SEO/SEO';
 
 const Calculator = () => {
     const [calculatorData, setCalculatorData] = useState({
@@ -83,139 +85,146 @@ const Calculator = () => {
     }, [calculatorData, timePeriod]);
 
     return (
-        <div className="calculator-page">
-            <section className="calculator-hero">
-                <div className="container">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h1>Savings Calculator</h1>
-                        <p className="lead">See how much time and money you can save with Kntrkt</p>
-                    </motion.div>
-                </div>
-            </section>
+        <>
+            <SEO 
+                title="Savings Calculator - See Your Potential ROI"
+                description="Calculate your potential time and cost savings with KNTRKT's contract management and payment automation platform."
+                keywords="ROI calculator, contract management savings, payment processing fees, time savings calculator, business efficiency"
+            />
+            <div className="calculator-page">
+                <section className="calculator-hero">
+                    <div className="container">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <h1>Savings Calculator</h1>
+                            <p className="lead">See how much time and money you can save with Kntrkt</p>
+                        </motion.div>
+                    </div>
+                </section>
 
-            <section className="calculator-content">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-6">
-                            <motion.div
-                                className="calculator-form"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.6 }}
-                            >
-                                <h2>Enter Your Details</h2>
-                                <div className="form-group">
-                                    <label>Average Transfer Amount ($)</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        value={calculatorData.transferAmount}
-                                        onChange={(e) => setCalculatorData({
-                                            ...calculatorData,
-                                            transferAmount: Number(e.target.value)
-                                        })}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Weekly Contract Volume</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        value={calculatorData.weeklyVolume}
-                                        onChange={(e) => setCalculatorData({
-                                            ...calculatorData,
-                                            weeklyVolume: Number(e.target.value)
-                                        })}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Employee Hourly Rate ($)</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        value={calculatorData.hourlyRate}
-                                        onChange={(e) => setCalculatorData({
-                                            ...calculatorData,
-                                            hourlyRate: Number(e.target.value)
-                                        })}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Weekly Payment Transactions</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        value={calculatorData.transactionsPerWeek}
-                                        onChange={(e) => setCalculatorData({
-                                            ...calculatorData,
-                                            transactionsPerWeek: Number(e.target.value)
-                                        })}
-                                    />
-                                </div>
-                            </motion.div>
-                        </div>
-                        <div className="col-lg-6">
-                            <motion.div
-                                className="savings-results"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.6 }}
-                            >
-                                <h2>Your Potential Savings</h2>
-                                <div className="time-period-selector">
-                                    <button 
-                                        className={`period-btn ${timePeriod === 'weekly' ? 'active' : ''}`}
-                                        onClick={() => setTimePeriod('weekly')}
-                                    >
-                                        Weekly
-                                    </button>
-                                    <button 
-                                        className={`period-btn ${timePeriod === 'monthly' ? 'active' : ''}`}
-                                        onClick={() => setTimePeriod('monthly')}
-                                    >
-                                        Monthly
-                                    </button>
-                                    <button 
-                                        className={`period-btn ${timePeriod === 'yearly' ? 'active' : ''}`}
-                                        onClick={() => setTimePeriod('yearly')}
-                                    >
-                                        Yearly
-                                    </button>
-                                </div>
-                                <div className="savings-card">
-                                    <div className="savings-item">
-                                        <h3>Payment Processing Savings</h3>
-                                        <p className="amount">${savings.paymentSavings.toFixed(2)}</p>
-                                        <span className="detail">vs. Traditional Payment Methods</span>
+                <section className="calculator-content">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-6">
+                                <motion.div
+                                    className="calculator-form"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.6 }}
+                                >
+                                    <h2>Enter Your Details</h2>
+                                    <div className="form-group">
+                                        <label>Average Transfer Amount ($)</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            value={calculatorData.transferAmount}
+                                            onChange={(e) => setCalculatorData({
+                                                ...calculatorData,
+                                                transferAmount: Number(e.target.value)
+                                            })}
+                                        />
                                     </div>
-                                    <div className="savings-item">
-                                        <h3>Time Savings Value</h3>
-                                        <p className="amount">${savings.timeSavings.toFixed(2)}</p>
-                                        <span className="detail">Based on Payment Processing Time</span>
+                                    <div className="form-group">
+                                        <label>Weekly Contract Volume</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            value={calculatorData.weeklyVolume}
+                                            onChange={(e) => setCalculatorData({
+                                                ...calculatorData,
+                                                weeklyVolume: Number(e.target.value)
+                                            })}
+                                        />
                                     </div>
-                                    <div className="savings-item">
-                                        <h3>Contract Management Savings</h3>
-                                        <p className="amount">${savings.contractSavings.toFixed(2)}</p>
-                                        <span className="detail">vs. Traditional Contract Methods</span>
+                                    <div className="form-group">
+                                        <label>Employee Hourly Rate ($)</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            value={calculatorData.hourlyRate}
+                                            onChange={(e) => setCalculatorData({
+                                                ...calculatorData,
+                                                hourlyRate: Number(e.target.value)
+                                            })}
+                                        />
                                     </div>
-                                    <div className="total-savings">
-                                        <h3>Total {timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)} Savings</h3>
-                                        <p className="amount">${savings.totalSavings.toFixed(2)}</p>
-                                        <span className="detail">Combined Time & Money Savings</span>
+                                    <div className="form-group">
+                                        <label>Weekly Payment Transactions</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            value={calculatorData.transactionsPerWeek}
+                                            onChange={(e) => setCalculatorData({
+                                                ...calculatorData,
+                                                transactionsPerWeek: Number(e.target.value)
+                                            })}
+                                        />
                                     </div>
-                                </div>
-                            </motion.div>
+                                </motion.div>
+                            </div>
+                            <div className="col-lg-6">
+                                <motion.div
+                                    className="savings-results"
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.6 }}
+                                >
+                                    <h2>Your Potential Savings</h2>
+                                    <div className="time-period-selector">
+                                        <button 
+                                            className={`period-btn ${timePeriod === 'weekly' ? 'active' : ''}`}
+                                            onClick={() => setTimePeriod('weekly')}
+                                        >
+                                            Weekly
+                                        </button>
+                                        <button 
+                                            className={`period-btn ${timePeriod === 'monthly' ? 'active' : ''}`}
+                                            onClick={() => setTimePeriod('monthly')}
+                                        >
+                                            Monthly
+                                        </button>
+                                        <button 
+                                            className={`period-btn ${timePeriod === 'yearly' ? 'active' : ''}`}
+                                            onClick={() => setTimePeriod('yearly')}
+                                        >
+                                            Yearly
+                                        </button>
+                                    </div>
+                                    <div className="savings-card">
+                                        <div className="savings-item">
+                                            <h3>Payment Processing Savings</h3>
+                                            <p className="amount">${savings.paymentSavings.toFixed(2)}</p>
+                                            <span className="detail">vs. Traditional Payment Methods</span>
+                                        </div>
+                                        <div className="savings-item">
+                                            <h3>Time Savings Value</h3>
+                                            <p className="amount">${savings.timeSavings.toFixed(2)}</p>
+                                            <span className="detail">Based on Payment Processing Time</span>
+                                        </div>
+                                        <div className="savings-item">
+                                            <h3>Contract Management Savings</h3>
+                                            <p className="amount">${savings.contractSavings.toFixed(2)}</p>
+                                            <span className="detail">vs. Traditional Contract Methods</span>
+                                        </div>
+                                        <div className="total-savings">
+                                            <h3>Total {timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)} Savings</h3>
+                                            <p className="amount">${savings.totalSavings.toFixed(2)}</p>
+                                            <span className="detail">Combined Time & Money Savings</span>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <Footer />
-        </div>
+                <Footer />
+            </div>
+        </>
     );
 };
 

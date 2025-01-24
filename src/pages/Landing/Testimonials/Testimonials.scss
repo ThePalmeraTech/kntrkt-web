@@ -2,9 +2,10 @@
 
 .testimonials-section {
     background: linear-gradient(135deg, $primary-light 0%, darken($primary-light, 10%) 100%);
-    padding: 8rem 0;
+    padding: 4rem 0;
     position: relative;
     overflow: hidden;
+    text-align: center;
 
     &::before {
         content: '';
@@ -17,75 +18,79 @@
 
     h2 {
         color: $white;
-        font-size: clamp(2rem, 3vw, 2.5rem);
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
         font-weight: 800;
         text-align: center;
-        margin-bottom: 4rem;
-        position: relative;
+        margin-bottom: 2.5rem;
+        padding: 0 1rem;
     }
 
     .testimonials-container {
-        position: relative;
-        max-width: 1440px;
+        display: flex;
+        gap: 2rem;
+        padding: 2rem;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 0 2rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (min-width: 993px) {
+            overflow-x: visible;
+            flex-wrap: nowrap;
+            justify-content: center;
+            padding: 0 2rem;
+        }
     }
 
     .testimonial-card {
-        background: rgba($white, 0.98);
-        padding: 2.5rem;
-        border-radius: 24px;
-        box-shadow: 
-            0 20px 40px rgba($black, 0.1),
-            0 0 0 1px rgba($white, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        height: 100%;
-        min-height: 300px;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        backdrop-filter: blur(10px);
+        flex: 0 0 100%;
+        max-width: 380px;
+        scroll-snap-align: center;
+        background: rgba($white, 0.95);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+
+        @media (min-width: 993px) {
+            flex: 1;
+        }
 
         &:hover {
             transform: translateY(-5px);
-            box-shadow: 
-                0 30px 60px rgba($black, 0.15),
-                0 0 0 1px rgba($white, 0.2);
-        }
-
-        &::before {
-            content: '"';
-            position: absolute;
-            top: -20px;
-            left: 30px;
-            font-size: 120px;
-            color: $primary-color;
-            opacity: 0.1;
-            font-family: Georgia, serif;
-            line-height: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         .quote {
-            font-size: 1.125rem;
-            line-height: 1.7;
-            color: $gray-700;
+            font-size: 1.1rem;
+            line-height: 1.6;
             margin-bottom: 2rem;
-            position: relative;
-            flex-grow: 1;
+            color: $primary-dark;
         }
 
         .author-info {
             display: flex;
             align-items: center;
             gap: 1rem;
-            border-top: 1px solid rgba($gray-400, 0.3);
-            padding-top: 1.5rem;
 
             .author-avatar {
-                width: 48px;
-                height: 48px;
+                width: 50px;
+                height: 50px;
                 border-radius: 50%;
                 overflow: hidden;
+                background: $primary-light;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                color: $white;
+                font-size: 1.25rem;
                 
                 img {
                     width: 100%;
@@ -97,36 +102,47 @@
             .author-details {
                 .author {
                     font-weight: 600;
-                    color: $gray-800;
+                    color: $primary-dark;
                     margin-bottom: 0.25rem;
                 }
 
                 .position {
-                    font-size: 0.875rem;
-                    color: $gray-600;
+                    font-size: 0.9rem;
+                    color: rgba($primary-dark, 0.7);
                 }
             }
         }
     }
 
-    .row {
+    .scroll-indicator {
         display: flex;
-        flex-wrap: nowrap;
-        gap: 2rem;
-        overflow-x: auto;
-        padding: 1rem 0;
-        margin: 0 -1rem;
-        
-        &::-webkit-scrollbar {
-            display: none;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        padding: 0 1rem;
+
+        .scroll-dot {
+            width: 8px;
+            height: 8px;
+            padding: 0;
+            border: none;
+            border-radius: 50%;
+            background: rgba($white, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &.active {
+                background: $white;
+                transform: scale(1.5);
+            }
+
+            &:hover {
+                background: rgba($white, 0.5);
+            }
         }
-        
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        
-        > div {
-            min-width: calc(33.333% - 1.33rem);
-            flex: 0 0 calc(33.333% - 1.33rem);
+
+        @media (min-width: 993px) {
+            display: none;
         }
     }
 }

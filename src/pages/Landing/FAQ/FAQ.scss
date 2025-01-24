@@ -1,4 +1,5 @@
 @import '../../../styles/_variables';
+@import '../../../styles/_mobile-mixins';
 
 .faq-section {
     background: linear-gradient(180deg, $gray-50 0%, $white 100%);
@@ -87,6 +88,34 @@
                 color: $gray-600;
                 line-height: 1.6;
                 padding-right: 2rem;
+            }
+        }
+    }
+}
+
+@media (max-width: $breakpoint-md) {
+    .faq-section {
+        @include mobile-section-padding;
+
+        .faq-header {
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .faq-grid {
+            gap: 0.75rem;
+        }
+
+        .faq-item {
+            @include mobile-card;
+
+            .faq-question h3 {
+                font-size: 1rem;
+            }
+
+            .faq-answer p {
+                padding-right: 0;
+                font-size: 0.95rem;
             }
         }
     }

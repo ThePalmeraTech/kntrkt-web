@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import './Navbar.scss';
 
 const Navbar = () => {
@@ -11,9 +10,8 @@ const Navbar = () => {
     const navLinks = [
         { name: 'Features', path: '/features' },
         { name: 'Calculator', path: '/calculator' },
-        { name: 'Pricing', path: '/pricing' },
+        // { name: 'Pricing', path: '/pricing' }, // Comentado temporalmente
         { name: 'About us', path: '/about' },
-      //  { name: 'Blog', path: '/blog' },
         { name: 'Help', path: '/help' }
     ];
 
@@ -26,39 +24,65 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Manejar el scroll del body cuando el menú está abierto
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+    }, [isMobileMenuOpen]);
+
+    // Cerrar el menú cuando cambia la ruta
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [location]);
+
     return (
         <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container">
                 <div className="navbar-content">
                     <Link to="/" className="navbar-brand">
-                        <img src="/logo.svg" alt="Kntrkt" className="logo" />
+                        <span className="logo-text">
+                            <span className="logo-k">K</span>NTRKT
+                            <span className="logo-dot">.</span>
+                        </span>
                     </Link>
 
-                    <button 
-                        className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-
-                    <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
-                        {navLinks.map((link) => (
-                            <motion.div
-                                key={link.name}
-                                whileHover={{ y: -2 }}
-                                transition={{ duration: 0.2 }}
-                            >
+                    <div className="navbar-right">
+                        <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
+                            <div className="mobile-menu-header">
+                                <Link to="/" className="navbar-brand" onClick={() => setIsMobileMenuOpen(false)}>
+                                    <span className="logo-text">
+                                        <span className="logo-k">K</span>NTRKT
+                                        <span className="logo-dot">.</span>
+                                    </span>
+                                </Link>
+                            </div>
+                            {navLinks.map((link) => (
                                 <Link 
+                                    key={link.name}
                                     to={link.path}
                                     className={location.pathname === link.path ? 'active' : ''}
+                                    onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     {link.name}
                                 </Link>
-                            </motion.div>
-                        ))}
-                      
+                            ))}
+                            <Link to="/early-access" className="btn btn-primary">
+                                Join Early Access
+                            </Link>
+                        </div>
+
+                        <button 
+                            className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            aria-label="Toggle menu"
+                        >
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
                     </div>
                 </div>
             </div>

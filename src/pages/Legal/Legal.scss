@@ -1,11 +1,13 @@
 @import '../../styles/_variables';
 
 .legal-page {
+    background: $white;
+
     .legal-hero {
-        background: linear-gradient(135deg, $primary-color, darken($primary-color, 20%));
-        padding: 6rem 0;
-        text-align: center;
+        background: linear-gradient(135deg, $primary-color, darken($primary-color, 15%));
+        padding: 8rem 0 4rem;
         color: $white;
+        text-align: center;
         position: relative;
         overflow: hidden;
 
@@ -19,58 +21,85 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 700;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
             margin-bottom: 1rem;
         }
 
-        .lead {
-            font-size: 1.25rem;
-            opacity: 0.8;
+        p {
+            font-size: 1.125rem;
+            opacity: 0.9;
         }
     }
 
     .legal-content {
         padding: 4rem 0;
-        background: $white;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
 
         .content-wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-
-            h2 {
-                color: $gray-800;
-                font-size: 1.75rem;
-                margin: 2.5rem 0 1rem;
-                
-                &:first-child {
-                    margin-top: 0;
-                }
-            }
-
-            p {
+            .introduction {
+                text-align: center;
+                max-width: 800px;
+                margin: 0 auto 4rem;
+                font-size: 1.25rem;
                 color: $gray-700;
-                line-height: 1.8;
-                margin-bottom: 1.5rem;
             }
 
-            ul {
-                color: $gray-700;
-                margin-bottom: 1.5rem;
-                padding-left: 1.5rem;
+            .sections-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
 
-                li {
-                    margin-bottom: 0.5rem;
-                    line-height: 1.6;
-                }
-            }
+                .section-card {
+                    background: $white;
+                    border-radius: 20px;
+                    padding: 2rem;
+                    box-shadow: 0 10px 30px rgba($gray-800, 0.1);
+                    transition: transform 0.3s ease;
 
-            a {
-                color: $primary-color;
-                text-decoration: none;
+                    &:hover {
+                        transform: translateY(-5px);
+                    }
 
-                &:hover {
-                    text-decoration: underline;
+                    .section-icon {
+                        font-size: 2.5rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    h2 {
+                        font-size: 1.5rem;
+                        color: $primary-color;
+                        margin-bottom: 1rem;
+                    }
+
+                    p {
+                        color: $gray-700;
+                        margin-bottom: 1.5rem;
+                        line-height: 1.6;
+                    }
+
+                    .items-list {
+                        list-style: none;
+                        padding: 0;
+
+                        li {
+                            padding: 0.5rem 0;
+                            color: $gray-600;
+                            display: flex;
+                            align-items: center;
+
+                            &::before {
+                                content: '→';
+                                margin-right: 0.5rem;
+                                color: $primary-color;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -80,11 +109,15 @@
 @media (max-width: 768px) {
     .legal-page {
         .legal-hero {
-            padding: 4rem 1rem;
+            padding: 6rem 1rem 3rem;
         }
 
         .legal-content {
-            padding: 3rem 1rem;
+            padding: 2rem 0;
+
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
         }
     }
 }

@@ -1,0 +1,110 @@
+@import '../../../styles/_variables';
+
+.early-access-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, $primary-dark 0%, darken($primary-dark, 5%) 100%);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle at 1px 1px, rgba($white, 0.05) 1px, transparent 0);
+        background-size: 20px 20px;
+        pointer-events: none;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .early-access-content {
+        text-align: center;
+        color: $white;
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+        }
+    }
+
+    .early-access-form {
+        background: rgba($white, 0.02);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba($white, 0.1);
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+
+            @media (max-width: 576px) {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+
+            label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+
+            input {
+                width: 100%;
+                padding: 0.875rem 1rem;
+                border-radius: 12px;
+                border: 1px solid rgba($white, 0.1);
+                background: rgba($white, 0.05);
+                color: $white;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+
+                &::placeholder {
+                    color: rgba($white, 0.5);
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: $primary-color;
+                    background: rgba($white, 0.08);
+                }
+            }
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            background: $primary-color;
+            color: $primary-dark;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba($primary-color, 0.3);
+            }
+        }
+    }
+} 

@@ -1,5 +1,6 @@
 @import '../../styles/_variables';
 @import '../../styles/_cta';
+@import '../../styles/_mobile-mixins';
 
 .calculator-page {
     .calculator-hero {
@@ -208,6 +209,29 @@
                         font-size: 1.75rem;
                     }
                 }
+            }
+        }
+    }
+}
+
+@media (max-width: $breakpoint-md) {
+    .calculator-section {
+        @include mobile-section-padding;
+
+        .calculator-form {
+            padding: 1.25rem;
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .results {
+                padding: 1.25rem;
+                margin-top: 2rem;
             }
         }
     }

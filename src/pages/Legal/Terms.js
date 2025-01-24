@@ -1,91 +1,101 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO/SEO';
 import Footer from '../Landing/Footer/Footer';
 import './Legal.scss';
 
 const Terms = () => {
+    const sections = [
+        {
+            title: "1. Terms of Service",
+            content: "By accessing and using KNTRKT's services, you agree to comply with and be bound by these Terms of Service. If you disagree with any part of these terms, please do not use our services.",
+            icon: "⚖️"
+        },
+        {
+            title: "2. User Obligations",
+            content: "Users must maintain accurate account information, protect their credentials, and use the platform responsibly. Any misuse or unauthorized access should be reported immediately.",
+            icon: "👤"
+        },
+        {
+            title: "3. Service Description",
+            content: "KNTRKT provides contract management and payment processing services. We reserve the right to modify, suspend, or discontinue any aspect of our services with notice to users.",
+            icon: "🔧"
+        },
+        {
+            title: "4. Intellectual Property",
+            content: "All content, features, and functionality of KNTRKT are owned by us and protected by international copyright, trademark, and other intellectual property laws.",
+            icon: "📜"
+        },
+        {
+            title: "5. Data Usage",
+            content: "We collect and process data as described in our Privacy Policy. By using our services, you consent to such processing and guarantee that all data provided has been obtained legally.",
+            icon: "🔐"
+        },
+        {
+            title: "6. Payment Terms",
+            content: "Users agree to pay all fees associated with their use of KNTRKT. Fees are non-refundable unless otherwise specified or required by law.",
+            icon: "💳"
+        }
+    ];
+
     return (
-        <div className="legal-page">
-            <section className="legal-hero">
-                <div className="container">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h1>Terms and Conditions</h1>
-                        <p className="lead">Last updated: March 2024</p>
-                    </motion.div>
-                </div>
-            </section>
+        <>
+            <SEO 
+                title="Terms & Conditions"
+                description="Read KNTRKT's terms and conditions. Understanding your rights and responsibilities when using our platform."
+                keywords="terms of service, legal terms, user agreement, KNTRKT terms, conditions of use"
+            />
+            <div className="legal-page terms-page">
+                <section className="legal-hero">
+                    <div className="container">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="hero-content"
+                        >
+                            <h1>Terms & Conditions</h1>
+                            <p>Last updated: {new Date().toLocaleDateString()}</p>
+                        </motion.div>
+                    </div>
+                </section>
 
-            <section className="legal-content">
-                <div className="container">
-                    <motion.div
-                        className="content-wrapper"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                    >
-                        <h2>1. Agreement to Terms</h2>
-                        <p>
-                            By accessing and using Kntrkt's services, you agree to be bound by these Terms and Conditions. 
-                            If you disagree with any part of these terms, you may not access our services.
-                        </p>
+                <section className="legal-content">
+                    <div className="container">
+                        <div className="content-wrapper">
+                            <motion.div 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                                className="introduction"
+                            >
+                                <p>Welcome to KNTRKT. These terms and conditions outline the rules and regulations for the use of our platform.</p>
+                            </motion.div>
 
-                        <h2>2. Use of Service</h2>
-                        <p>
-                            Our platform provides contract management and payment processing services. Users must:
-                        </p>
-                        <ul>
-                            <li>Provide accurate and complete information</li>
-                            <li>Maintain the security of their account</li>
-                            <li>Comply with all applicable laws and regulations</li>
-                            <li>Use the service for legitimate business purposes only</li>
-                        </ul>
+                            <div className="sections-grid">
+                                {sections.map((section, index) => (
+                                    <motion.div
+                                        key={section.title}
+                                        className="section-card"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                                    >
+                                        <div className="section-icon">{section.icon}</div>
+                                        <h2>{section.title}</h2>
+                                        <p>{section.content}</p>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-                        <h2>3. User Accounts</h2>
-                        <p>
-                            You are responsible for safeguarding your account credentials and for any activities 
-                            or actions under your account.
-                        </p>
-
-                        <h2>4. Payments and Fees</h2>
-                        <p>
-                            Users agree to pay all fees associated with their chosen service plan. 
-                            Payment processing is handled securely through our payment partners.
-                        </p>
-
-                        <h2>5. Intellectual Property</h2>
-                        <p>
-                            The service and its original content, features, and functionality are owned by 
-                            Kntrkt and are protected by international copyright, trademark, and other laws.
-                        </p>
-
-                        <h2>6. Limitation of Liability</h2>
-                        <p>
-                            Kntrkt shall not be liable for any indirect, incidental, special, consequential, 
-                            or punitive damages resulting from your use of our services.
-                        </p>
-
-                        <h2>7. Changes to Terms</h2>
-                        <p>
-                            We reserve the right to modify these terms at any time. We will notify users 
-                            of any material changes via email or through our platform.
-                        </p>
-
-                        <h2>8. Contact Information</h2>
-                        <p>
-                            For any questions about these Terms and Conditions, please contact us at:
-                            <br />
-                            <a href="mailto:legal@kntrkt.com">legal@kntrkt.com</a>
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            <Footer />
-        </div>
+                <Footer />
+            </div>
+        </>
     );
 };
 
