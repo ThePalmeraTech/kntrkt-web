@@ -22,13 +22,27 @@ KNTRKT is a modern contract management and payment platform designed for creativ
 - React Toastify
 - Modern JavaScript (ES6+)
 
-## 🚀 Getting Started
+## 👥 Team
 
-### Prerequisites
+- [Hanaley Mosley](https://github.com/hanaley) - UI/UX Designer & Full Stack Developer
+  - Design System Architecture
+  - Frontend Development
+  - User Experience Design
+  - Responsive Implementation
+  - Component Architecture
 
-- Node.js (v14 or higher)
-- npm or yarn
+## 🎨 Design & Development
 
-### Installation
+KNTRKT was designed and developed by Hanaley Mosley, combining modern UI/UX principles with robust full-stack development practices. The platform showcases:
 
-1. Clone the repository
+- Clean and intuitive user interface
+- Responsive design across all devices
+- Seamless user experience
+- Performance-optimized components
+- Scalable architecture
+
+## 📞 Support & Contact
+
+For inquiries and support:
+- Email: palmeratech7@gmail.com.com
+- LinkedIn: [Hanaley Mosley](https://linkedin.com/in/hanaley-mosley)
