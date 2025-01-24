@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/kntrkt-website/static/css/main.4f451a98.css",
+    "main.js": "/kntrkt-website/static/js/main.19af6720.js",
+    "static/js/488.e1e3ee46.chunk.js": "/kntrkt-website/static/js/488.e1e3ee46.chunk.js",
+    "index.html": "/kntrkt-website/index.html",
+    "main.4f451a98.css.map": "/kntrkt-website/static/css/main.4f451a98.css.map",
+    "main.19af6720.js.map": "/kntrkt-website/static/js/main.19af6720.js.map",
+    "488.e1e3ee46.chunk.js.map": "/kntrkt-website/static/js/488.e1e3ee46.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4f451a98.css",
+    "static/js/main.19af6720.js"
+  ]
+}
