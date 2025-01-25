@@ -51,32 +51,73 @@ const EarlyAccess = () => {
 
     // Estilos personalizados para react-select
     const customStyles = {
-        control: (base) => ({
+        control: (base, state) => ({
             ...base,
             backgroundColor: 'rgba(255, 255, 255, 0.05)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: '12px',
+            padding: '0.375rem',
             color: '#fff',
-            padding: '5px',
+            cursor: 'pointer',
             boxShadow: 'none',
+            transition: 'all 0.3s ease',
             '&:hover': {
                 borderColor: '#5f9ea0',
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
             },
         }),
         menu: (base) => ({
             ...base,
-            backgroundColor: 'rgba(0, 0, 0, 0.9)',
-            borderRadius: '8px',
-            color: '#fff',
-            zIndex: 100,
+            backgroundColor: 'rgba(17, 25, 40, 0.95)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '12px',
+            padding: '0.5rem',
+            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+            marginTop: '4px',
         }),
         menuList: (base) => ({
             ...base,
-            maxHeight: '150px',
-            overflowY: 'auto',
-            scrollbarWidth: 'thin',
+            padding: '0.5rem',
+            '::-webkit-scrollbar': {
+                width: '8px',
+                height: '0px',
+            },
+            '::-webkit-scrollbar-track': {
+                background: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '4px',
+            },
+            '::-webkit-scrollbar-thumb': {
+                background: 'rgba(255, 255, 255, 0.3)',
+                borderRadius: '4px',
+                '&:hover': {
+                    background: 'rgba(255, 255, 255, 0.4)',
+                },
+            },
+        }),
+        option: (base, state) => ({
+            ...base,
+            backgroundColor: state.isSelected 
+                ? 'rgba(95, 158, 160, 0.9)' 
+                : state.isFocused 
+                    ? 'rgba(255, 255, 255, 0.1)' 
+                    : 'transparent',
+            color: '#fff',
+            cursor: 'pointer',
+            padding: '0.75rem 1rem',
+            borderRadius: '8px',
+            transition: 'all 0.2s ease',
+            '&:hover': {
+                backgroundColor: state.isSelected 
+                    ? 'rgba(95, 158, 160, 0.9)' 
+                    : 'rgba(255, 255, 255, 0.15)',
+            },
         }),
         singleValue: (base) => ({
+            ...base,
+            color: '#fff',
+        }),
+        input: (base) => ({
             ...base,
             color: '#fff',
         }),
@@ -84,12 +125,18 @@ const EarlyAccess = () => {
             ...base,
             color: 'rgba(255, 255, 255, 0.5)',
         }),
-        dropdownIndicator: (base) => ({
+        dropdownIndicator: (base, state) => ({
             ...base,
-            color: '#fff',
+            color: 'rgba(255, 255, 255, 0.5)',
+            transition: 'all .2s ease',
+            transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
             '&:hover': {
                 color: '#5f9ea0',
             },
+        }),
+        indicatorSeparator: (base) => ({
+            ...base,
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
         }),
     };
 
