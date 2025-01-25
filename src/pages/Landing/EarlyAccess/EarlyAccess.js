@@ -1,3 +1,4 @@
+/* global grecaptcha */
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { countries } from 'country-data';
@@ -12,6 +13,8 @@ const EarlyAccess = () => {
         email: '',
         country: ''
     });
+
+    const [message, setMessage] = useState('');
 
     const countryOptions = countries.all.map((country) => ({
         label: country.name,
@@ -32,21 +35,47 @@ const EarlyAccess = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const { firstName, lastName, email, country } = formData;
 
+        // Validar campos requeridos
         if (!firstName.trim() || !lastName.trim() || !email.trim() || !country.trim()) {
-            console.error("Please fill in all fields.");
+            setMessage("Please fill in all fields.");
             return;
         }
 
+        // Validar formato de email
         if (!/\S+@\S+\.\S+/.test(email)) {
-            console.error("Please enter a valid email address.");
+            setMessage("Please enter a valid email address.");
             return;
         }
 
-        console.log('Form submitted:', formData);
+        try {
+            // Integrar reCAPTCHA v3
+            const recaptchaToken = await grecaptcha.execute('YOUR_SITE_KEY', { action: 'submit' });
+            const formDataWithToken = { ...formData, token: recaptchaToken };
+
+            const response = await fetch(
+                'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formDataWithToken),
+                }
+            );
+
+            if (response.ok) {
+                setMessage("Form submitted successfully!");
+            } else {
+                setMessage("Error submitting form. Please try again.");
+            }
+        } catch (error) {
+            setMessage("Error submitting form. Please try again.");
+            console.error('Error:', error);
+        }
     };
 
     // Estilos personalizados para react-select
@@ -97,10 +126,10 @@ const EarlyAccess = () => {
         }),
         option: (base, state) => ({
             ...base,
-            backgroundColor: state.isSelected 
-                ? 'rgba(95, 158, 160, 0.9)' 
-                : state.isFocused 
-                    ? 'rgba(255, 255, 255, 0.1)' 
+            backgroundColor: state.isSelected
+                ? 'rgba(95, 158, 160, 0.9)'
+                : state.isFocused
+                    ? 'rgba(255, 255, 255, 0.1)'
                     : 'transparent',
             color: '#fff',
             cursor: 'pointer',
@@ -108,8 +137,8 @@ const EarlyAccess = () => {
             borderRadius: '8px',
             transition: 'all 0.2s ease',
             '&:hover': {
-                backgroundColor: state.isSelected 
-                    ? 'rgba(95, 158, 160, 0.9)' 
+                backgroundColor: state.isSelected
+                    ? 'rgba(95, 158, 160, 0.9)'
                     : 'rgba(255, 255, 255, 0.15)',
             },
         }),
@@ -160,6 +189,7 @@ const EarlyAccess = () => {
                             <h2>Join Early Access</h2>
                             <p>Be among the first to experience KNTRKT and shape the future of contract management.</p>
                             <form onSubmit={handleSubmit} className="early-access-form">
+                                {message && <p className="message">{message}</p>}
                                 <div className="form-row">
                                     <div className="form-group">
                                         <label htmlFor="firstName">First Name</label>
@@ -204,7 +234,7 @@ const EarlyAccess = () => {
                                         id="country"
                                         options={countryOptions}
                                         onChange={handleSelectChange}
-                                        styles={customStyles} // Aplicar estilos personalizados
+                                        styles={customStyles}
                                         className="basic-single"
                                         classNamePrefix="select"
                                         placeholder="Select your country"
