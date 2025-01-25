@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import { countries } from 'country-data';
 import { motion } from 'framer-motion';
 import './EarlyAccess.scss';
-import ReCAPTCHA from 'react-google-recaptcha';
 import SEO from '../../../components/SEO/SEO';
 
 const EarlyAccess = () => {
@@ -14,7 +13,6 @@ const EarlyAccess = () => {
         country: ''
     });
 
-    const recaptchaRef = useRef(null);
     const countryOptions = countries.all.map((country) => ({
         label: country.name,
         value: country.alpha2
@@ -34,44 +32,45 @@ const EarlyAccess = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const { firstName, lastName, email, country } = formData;
 
-        // Validate that fields are not empty
+        // Validar que los campos no estén vacíos
         if (!firstName.trim() || !lastName.trim() || !email.trim() || !country.trim()) {
             console.error("Please fill in all fields.");
             return;
         }
 
-        // Validate email format
+        // Validar formato del email
         if (!/\S+@\S+\.\S+/.test(email)) {
             console.error("Please enter a valid email address.");
             return;
         }
 
-        const recaptchaValue = recaptchaRef.current.getValue();
-        if (!recaptchaValue) {
-            console.error("Please complete the CAPTCHA");
-            return; // Stop the function if CAPTCHA is not resolved
+        try {
+            // Ejecutar reCAPTCHA v3
+            const recaptchaToken = await grecaptcha.execute('6LeLXcMqAAAAAC1zBt2qyXVQdCpOfoG1WeRUTkL', { action: 'submit' });
+
+            const formDataWithToken = {
+                ...formData,
+                token: recaptchaToken // Usar el token generado por reCAPTCHA v3
+            };
+
+            // Enviar datos al servidor
+            fetch('https://script.google.com/macros/s/AKfycby-Ph-nExI0wGZIzg6EUWiTg1yOlHfwmAqT8CNXBDOwlmi9jJ335BAsTORx_moE62ct4/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formDataWithToken)
+            })
+            .then(response => console.log('Form submitted successfully'))
+            .catch(error => console.error('Error submitting form:', error));
+        } catch (error) {
+            console.error("Error executing reCAPTCHA:", error);
         }
-
-        const formDataWithToken = {
-            ...formData,
-            token: '+W+aGff55H54r4IAnbey4bgKTmfwiq2v9kpk6vq82NI=' // Include the token here
-        };
-
-        // Proceed to send the data
-        fetch('https://script.google.com/macros/s/AKfycby-Ph-nExI0wGZIzg6EUWiTg1yOlHfwmAqT8CNXBDOwlmi9jJ335BAsTORx_moE62ct4/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formDataWithToken)
-        })
-        .then(response => console.log('Form submitted successfully'))
-        .catch(error => console.error('Error submitting form:', error));
     };
 
     return (
@@ -143,10 +142,6 @@ const EarlyAccess = () => {
                                         placeholder="Select your country"
                                     />
                                 </div>
-                                <ReCAPTCHA
-                                    ref={recaptchaRef}
-                                    sitekey="6LeLXcMqAAAAAC1zBt2qyXVQdCpOfoG1WeRUTkL"
-                                />
                                 <button type="submit" className="btn btn-primary">
                                     Join Early Access
                                 </button>
