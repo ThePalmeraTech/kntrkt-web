@@ -1,3 +1,4 @@
+/* global grecaptcha */
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { countries } from 'country-data';
