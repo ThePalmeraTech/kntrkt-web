@@ -40,43 +40,49 @@ const EarlyAccess = () => {
         e.preventDefault();
         const { firstName, lastName, email, country } = formData;
 
-        // Validation for empty fields
+        // Validación para campos vacíos
         if (!firstName.trim() || !lastName.trim() || !email.trim() || !country.trim()) {
             setMessage("Please fill in all fields.");
             return;
         }
 
-        // Validation for email format
+        // Validación para email
         if (!/\S+@\S+\.\S+/.test(email)) {
             setMessage("Please enter a valid email address.");
             return;
         }
 
         try {
-            // Integrate reCAPTCHA v3
+            setMessage("Submitting...");
+            
+            // Obtener token de reCAPTCHA
             const recaptchaToken = await grecaptcha.execute('6LeLXcMqAAAAAC1zBt2qyXVQdCpOfoG1WeRUTkL', { action: 'submit' });
-            const formDataWithToken = { ...formData, token: recaptchaToken };
+            
+            // Crear FormData
+            const formDataForSheet = new FormData();
+            formDataForSheet.append('First Name', firstName);
+            formDataForSheet.append('Last Name', lastName);
+            formDataForSheet.append('Email', email);
+            formDataForSheet.append('Country', country);
+            formDataForSheet.append('Token', recaptchaToken);
 
+            // Enviar datos
             const response = await fetch(
-                'https://script.google.com/macros/s/AKfycby-Ph-nExl0wGZl6g6EUWiTg1yOlHfwmAqT8CNXBDOWlmj9J335BAStORx_moE62ct4/exec',
+                'https://script.google.com/macros/s/AKfycbxAYHbZ3ezv5PdI2ME76Itw99XxAw4nN-07CXoS6dz5j_W0rz04OkwY8DyefeJTmwVy/exec',
                 {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formDataWithToken),
+                    mode: 'no-cors',
+                    body: formDataForSheet
                 }
             );
 
-            if (response.ok) {
-                setMessage("Form submitted successfully!");
-                setFormData({ firstName: '', lastName: '', email: '', country: '' });
-            } else {
-                setMessage("Error submitting form. Please try again.");
-            }
+            // Limpiar formulario y mostrar mensaje de éxito
+            setFormData({ firstName: '', lastName: '', email: '', country: '' });
+            setMessage("Thank you for your interest! We'll be in touch soon.");
+            
         } catch (error) {
-            setMessage("Error submitting form. Please try again.");
             console.error('Error:', error);
+            setMessage("Sorry, there was an error. Please try again later.");
         }
     };
 
