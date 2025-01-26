@@ -16,6 +16,7 @@ const EarlyAccess = () => {
 
     const [message, setMessage] = useState('');
 
+    // Map countries for the dropdown
     const countryOptions = countries.all.map((country) => ({
         label: country.name,
         value: country.alpha2
@@ -39,25 +40,25 @@ const EarlyAccess = () => {
         e.preventDefault();
         const { firstName, lastName, email, country } = formData;
 
-        // Validar campos requeridos
+        // Validation for empty fields
         if (!firstName.trim() || !lastName.trim() || !email.trim() || !country.trim()) {
             setMessage("Please fill in all fields.");
             return;
         }
 
-        // Validar formato de email
+        // Validation for email format
         if (!/\S+@\S+\.\S+/.test(email)) {
             setMessage("Please enter a valid email address.");
             return;
         }
 
         try {
-            // Integrar reCAPTCHA v3
-            const recaptchaToken = await grecaptcha.execute('YOUR_SITE_KEY', { action: 'submit' });
+            // Integrate reCAPTCHA v3
+            const recaptchaToken = await grecaptcha.execute('6LeLXcMqAAAAAC1zBt2qyXVQdCpOfoG1WeRUTkL', { action: 'submit' });
             const formDataWithToken = { ...formData, token: recaptchaToken };
 
             const response = await fetch(
-                'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
+                'https://script.google.com/macros/s/AKfycby-Ph-nExl0wGZl6g6EUWiTg1yOlHfwmAqT8CNXBDOWlmj9J335BAStORx_moE62ct4/exec',
                 {
                     method: 'POST',
                     headers: {
@@ -69,6 +70,7 @@ const EarlyAccess = () => {
 
             if (response.ok) {
                 setMessage("Form submitted successfully!");
+                setFormData({ firstName: '', lastName: '', email: '', country: '' });
             } else {
                 setMessage("Error submitting form. Please try again.");
             }
@@ -78,18 +80,15 @@ const EarlyAccess = () => {
         }
     };
 
-    // Estilos personalizados para react-select
     const customStyles = {
-        control: (base, state) => ({
+        control: (base) => ({
             ...base,
             backgroundColor: 'rgba(255, 255, 255, 0.05)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: '12px',
             padding: '0.375rem',
             color: '#fff',
-            cursor: 'pointer',
             boxShadow: 'none',
-            transition: 'all 0.3s ease',
             '&:hover': {
                 borderColor: '#5f9ea0',
                 backgroundColor: 'rgba(255, 255, 255, 0.08)',
@@ -99,30 +98,7 @@ const EarlyAccess = () => {
             ...base,
             backgroundColor: 'rgba(17, 25, 40, 0.95)',
             backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: '12px',
-            padding: '0.5rem',
-            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-            marginTop: '4px',
-        }),
-        menuList: (base) => ({
-            ...base,
-            padding: '0.5rem',
-            '::-webkit-scrollbar': {
-                width: '8px',
-                height: '0px',
-            },
-            '::-webkit-scrollbar-track': {
-                background: 'rgba(255, 255, 255, 0.1)',
-                borderRadius: '4px',
-            },
-            '::-webkit-scrollbar-thumb': {
-                background: 'rgba(255, 255, 255, 0.3)',
-                borderRadius: '4px',
-                '&:hover': {
-                    background: 'rgba(255, 255, 255, 0.4)',
-                },
-            },
         }),
         option: (base, state) => ({
             ...base,
@@ -132,40 +108,10 @@ const EarlyAccess = () => {
                     ? 'rgba(255, 255, 255, 0.1)'
                     : 'transparent',
             color: '#fff',
-            cursor: 'pointer',
-            padding: '0.75rem 1rem',
-            borderRadius: '8px',
-            transition: 'all 0.2s ease',
-            '&:hover': {
-                backgroundColor: state.isSelected
-                    ? 'rgba(95, 158, 160, 0.9)'
-                    : 'rgba(255, 255, 255, 0.15)',
-            },
         }),
         singleValue: (base) => ({
             ...base,
             color: '#fff',
-        }),
-        input: (base) => ({
-            ...base,
-            color: '#fff',
-        }),
-        placeholder: (base) => ({
-            ...base,
-            color: 'rgba(255, 255, 255, 0.5)',
-        }),
-        dropdownIndicator: (base, state) => ({
-            ...base,
-            color: 'rgba(255, 255, 255, 0.5)',
-            transition: 'all .2s ease',
-            transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
-            '&:hover': {
-                color: '#5f9ea0',
-            },
-        }),
-        indicatorSeparator: (base) => ({
-            ...base,
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
         }),
     };
 
