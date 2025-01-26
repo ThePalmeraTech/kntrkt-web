@@ -53,38 +53,31 @@ const EarlyAccess = () => {
         e.preventDefault();
         const { firstName, lastName, email, country } = formData;
 
-        // Validación para campos vacíos
+        // Validaciones básicas
         if (!firstName.trim() || !lastName.trim() || !email.trim() || !country.trim()) {
             setMessage("Please fill in all fields.");
             return;
         }
 
-        // Validación para email
-        if (!/\S+@\S+\.\S+/.test(email)) {
-            setMessage("Please enter a valid email address.");
+        // Verificar reCAPTCHA
+        const recaptchaResponse = window.grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+            setMessage("Please complete the reCAPTCHA.");
             return;
         }
 
         try {
-            if (!recaptchaLoaded) {
-                throw new Error("reCAPTCHA not loaded yet. Please try again.");
-            }
-
             setMessage("Submitting...");
             
-            const recaptchaToken = await window.grecaptcha.execute('6LeLXcMqAAAAAC1zB2tqyXVQdCpOfoG1WeRUTkL', { action: 'submit' });
-            
-            // Crear FormData
             const formDataForSheet = new FormData();
             formDataForSheet.append('First Name', firstName);
             formDataForSheet.append('Last Name', lastName);
             formDataForSheet.append('Email', email);
             formDataForSheet.append('Country', country);
-            formDataForSheet.append('Token', recaptchaToken);
+            formDataForSheet.append('Token', recaptchaResponse);
 
-            // Enviar datos (asegúrate de usar la URL correcta de tu Google Apps Script)
             const response = await fetch(
-                'https://script.google.com/macros/s/AKfycbwG1MQBm_YtU5kDQJLug0M-QCxcnTsIo7EdtYMn38QtrRthXu-qbBN5D5xvZv-i3Q2e/exec',
+                'https://script.google.com/macros/s/AKfycbzGJB70ztRa5iJ_UThqtGaNg-Lv7x5lnw2FIlAGmnuN_RFA3odZUb6g99UBjVyqALV-/exec',
                 {
                     method: 'POST',
                     mode: 'no-cors',
@@ -92,13 +85,15 @@ const EarlyAccess = () => {
                 }
             );
 
-            // Limpiar formulario y mostrar mensaje de éxito
+            // Reset reCAPTCHA
+            window.grecaptcha.reset();
+            
             setFormData({ firstName: '', lastName: '', email: '', country: '' });
             setMessage("Thank you for your interest! We'll be in touch soon.");
             
         } catch (error) {
             console.error('Error:', error);
-            setMessage(error.message || "Sorry, there was an error. Please try again later.");
+            setMessage("Sorry, there was an error. Please try again later.");
         }
     };
 
@@ -208,6 +203,7 @@ const EarlyAccess = () => {
                                         placeholder="Select your country"
                                     />
                                 </div>
+                                <div className="g-recaptcha" data-sitekey="6LeOfsMqAAAAAuDIOgdx6ACgoyzA001vYAM6Vq2"></div>
                                 <button type="submit" className="btn btn-primary">
                                     Join Early Access
                                 </button>
