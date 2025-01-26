@@ -59,10 +59,10 @@ const EarlyAccess = () => {
             return;
         }
 
-        // Verificar reCAPTCHA
-        const recaptchaResponse = window.grecaptcha.getResponse();
-        if (!recaptchaResponse) {
-            setMessage("Please complete the reCAPTCHA.");
+        // Validación de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setMessage("Please enter a valid email address.");
             return;
         }
 
@@ -74,7 +74,6 @@ const EarlyAccess = () => {
             formDataForSheet.append('Last Name', lastName);
             formDataForSheet.append('Email', email);
             formDataForSheet.append('Country', country);
-            formDataForSheet.append('Token', recaptchaResponse);
 
             const response = await fetch(
                 'https://script.google.com/macros/s/AKfycbzGJB70ztRa5iJ_UThqtGaNg-Lv7x5lnw2FIlAGmnuN_RFA3odZUb6g99UBjVyqALV-/exec',
@@ -85,9 +84,6 @@ const EarlyAccess = () => {
                 }
             );
 
-            // Reset reCAPTCHA
-            window.grecaptcha.reset();
-            
             setFormData({ firstName: '', lastName: '', email: '', country: '' });
             setMessage("Thank you for your interest! We'll be in touch soon.");
             
@@ -203,7 +199,6 @@ const EarlyAccess = () => {
                                         placeholder="Select your country"
                                     />
                                 </div>
-                                <div className="g-recaptcha" data-sitekey="6LeOfsMqAAAAAuDIOgdx6ACgoyzA001vYAM6Vq2"></div>
                                 <button type="submit" className="btn btn-primary">
                                     Join Early Access
                                 </button>
