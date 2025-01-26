@@ -55,8 +55,13 @@ const EarlyAccess = () => {
         try {
             setMessage("Submitting...");
             
-            // Obtener token de reCAPTCHA
-            const recaptchaToken = await grecaptcha.execute('6LeLXcMqAAAAAC1zBt2qyXVQdCpOfoG1WeRUTkL', { action: 'submit' });
+            // Verificar que grecaptcha está disponible
+            if (!window.grecaptcha) {
+                throw new Error("reCAPTCHA not loaded");
+            }
+
+            // Obtener token de reCAPTCHA con la Site Key correcta
+            const recaptchaToken = await window.grecaptcha.execute('6LeLXcMqAAAAAC1zB2tqyXVQdCpOfoG1WeRUTkL', { action: 'submit' });
             
             // Crear FormData
             const formDataForSheet = new FormData();
@@ -66,9 +71,9 @@ const EarlyAccess = () => {
             formDataForSheet.append('Country', country);
             formDataForSheet.append('Token', recaptchaToken);
 
-            // Enviar datos
+            // Enviar datos (asegúrate de usar la URL correcta de tu Google Apps Script)
             const response = await fetch(
-                'https://script.google.com/macros/s/AKfycbxAYHbZ3ezv5PdI2ME76Itw99XxAw4nN-07CXoS6dz5j_W0rz04OkwY8DyefeJTmwVy/exec',
+                'https://script.google.com/macros/s/AKfycbwG1MQBm_YtU5kDQJLug0M-QCxcnTsIo7EdtYMn38QtrRthXu-qbBN5D5xvZv-i3Q2e/exec',
                 {
                     method: 'POST',
                     mode: 'no-cors',
@@ -82,7 +87,7 @@ const EarlyAccess = () => {
             
         } catch (error) {
             console.error('Error:', error);
-            setMessage("Sorry, there was an error. Please try again later.");
+            setMessage(error.message || "Sorry, there was an error. Please try again later.");
         }
     };
 
