@@ -55,12 +55,18 @@ const EarlyAccess = () => {
         try {
             setMessage("Submitting...");
             
-            // Verificar que grecaptcha está disponible
-            if (!window.grecaptcha) {
-                throw new Error("reCAPTCHA not loaded");
+            // Esperar a que grecaptcha se cargue
+            if (!window.grecaptcha || !window.grecaptcha.execute) {
+                await new Promise(resolve => {
+                    const checkRecaptcha = setInterval(() => {
+                        if (window.grecaptcha && window.grecaptcha.execute) {
+                            clearInterval(checkRecaptcha);
+                            resolve();
+                        }
+                    }, 100);
+                });
             }
 
-            // Obtener token de reCAPTCHA con la Site Key correcta
             const recaptchaToken = await window.grecaptcha.execute('6LeLXcMqAAAAAC1zB2tqyXVQdCpOfoG1WeRUTkL', { action: 'submit' });
             
             // Crear FormData
