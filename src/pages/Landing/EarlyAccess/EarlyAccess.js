@@ -1,5 +1,5 @@
-/* global grecaptcha */
-import React, { useState } from 'react';
+/* eslint-disable no-undef */
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { countries } from 'country-data';
 import { motion } from 'framer-motion';
@@ -15,6 +15,19 @@ const EarlyAccess = () => {
     });
 
     const [message, setMessage] = useState('');
+    const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+
+    useEffect(() => {
+        // Verificar cuando reCAPTCHA se carga
+        const checkRecaptcha = setInterval(() => {
+            if (window.grecaptcha && window.grecaptcha.execute) {
+                setRecaptchaLoaded(true);
+                clearInterval(checkRecaptcha);
+            }
+        }, 100);
+
+        return () => clearInterval(checkRecaptcha);
+    }, []);
 
     // Map countries for the dropdown
     const countryOptions = countries.all.map((country) => ({
@@ -53,20 +66,12 @@ const EarlyAccess = () => {
         }
 
         try {
-            setMessage("Submitting...");
-            
-            // Esperar a que grecaptcha se cargue
-            if (!window.grecaptcha || !window.grecaptcha.execute) {
-                await new Promise(resolve => {
-                    const checkRecaptcha = setInterval(() => {
-                        if (window.grecaptcha && window.grecaptcha.execute) {
-                            clearInterval(checkRecaptcha);
-                            resolve();
-                        }
-                    }, 100);
-                });
+            if (!recaptchaLoaded) {
+                throw new Error("reCAPTCHA not loaded yet. Please try again.");
             }
 
+            setMessage("Submitting...");
+            
             const recaptchaToken = await window.grecaptcha.execute('6LeLXcMqAAAAAC1zB2tqyXVQdCpOfoG1WeRUTkL', { action: 'submit' });
             
             // Crear FormData
