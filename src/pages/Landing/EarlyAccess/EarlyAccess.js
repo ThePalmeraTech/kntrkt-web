@@ -15,6 +15,7 @@ const EarlyAccess = () => {
     });
 
     const [message, setMessage] = useState('');
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     // Map countries for the dropdown
     const countryOptions = countries.all.map((country) => ({
@@ -72,7 +73,7 @@ const EarlyAccess = () => {
             );
 
             setFormData({ firstName: '', lastName: '', email: '', country: '' });
-            setMessage("Thank you for your interest! We'll be in touch soon.");
+            setIsSubmitted(true);
             
         } catch (error) {
             console.error('Error:', error);
@@ -125,72 +126,113 @@ const EarlyAccess = () => {
             <div className="early-access-page">
                 <section className="early-access-section">
                     <div className="container">
-                        <motion.div
-                            className="early-access-content"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            <h2>Join Early Access</h2>
-                            <p>Be among the first to experience KNTRKT and shape the future of contract management.</p>
-                            <form onSubmit={handleSubmit} className="early-access-form">
-                                {message && <p className="message">{message}</p>}
-                                <div className="form-row">
+                        {!isSubmitted ? (
+                            <motion.div
+                                className="early-access-content"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                <h2>Join Early Access</h2>
+                                <p>Be among the first to experience KNTRKT and shape the future of contract management.</p>
+                                <form onSubmit={handleSubmit} className="early-access-form">
+                                    {message && <p className="message">{message}</p>}
+                                    <div className="form-row">
+                                        <div className="form-group">
+                                            <label htmlFor="firstName">First Name</label>
+                                            <input
+                                                type="text"
+                                                id="firstName"
+                                                name="firstName"
+                                                value={formData.firstName}
+                                                onChange={handleChange}
+                                                required
+                                                placeholder="Enter your first name"
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="lastName">Last Name</label>
+                                            <input
+                                                type="text"
+                                                id="lastName"
+                                                name="lastName"
+                                                value={formData.lastName}
+                                                onChange={handleChange}
+                                                required
+                                                placeholder="Enter your last name"
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="form-group">
-                                        <label htmlFor="firstName">First Name</label>
+                                        <label htmlFor="email">Email Address</label>
                                         <input
-                                            type="text"
-                                            id="firstName"
-                                            name="firstName"
-                                            value={formData.firstName}
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            value={formData.email}
                                             onChange={handleChange}
                                             required
-                                            placeholder="Enter your first name"
+                                            placeholder="Enter your email address"
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="lastName">Last Name</label>
-                                        <input
-                                            type="text"
-                                            id="lastName"
-                                            name="lastName"
-                                            value={formData.lastName}
-                                            onChange={handleChange}
-                                            required
-                                            placeholder="Enter your last name"
+                                        <label htmlFor="country">Country</label>
+                                        <Select
+                                            id="country"
+                                            options={countryOptions}
+                                            onChange={handleSelectChange}
+                                            styles={customStyles}
+                                            className="basic-single"
+                                            classNamePrefix="select"
+                                            placeholder="Select your country"
                                         />
                                     </div>
+                                    <button type="submit" className="btn btn-primary">
+                                        Join Early Access
+                                    </button>
+                                </form>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                className="success-message"
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.6, ease: "easeOut" }}
+                            >
+                                <div className="success-icon">
+                                    <motion.svg
+                                        width="100"
+                                        height="100"
+                                        viewBox="0 0 100 100"
+                                        initial={{ pathLength: 0 }}
+                                        animate={{ pathLength: 1 }}
+                                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                                    >
+                                        <circle cx="50" cy="50" r="45" fill="none" stroke="#5f9ea0" strokeWidth="2" />
+                                        <path
+                                            d="M30 50 L45 65 L70 35"
+                                            fill="none"
+                                            stroke="#5f9ea0"
+                                            strokeWidth="3"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </motion.svg>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="email">Email Address</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="Enter your email address"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="country">Country</label>
-                                    <Select
-                                        id="country"
-                                        options={countryOptions}
-                                        onChange={handleSelectChange}
-                                        styles={customStyles}
-                                        className="basic-single"
-                                        classNamePrefix="select"
-                                        placeholder="Select your country"
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-primary">
-                                    Join Early Access
-                                </button>
-                            </form>
-                        </motion.div>
+                                <h2>Thank You!</h2>
+                                <p>Your early access request has been successfully submitted.</p>
+                                <p className="sub-message">We'll be in touch soon with exclusive updates about KNTRKT.</p>
+                                <motion.button
+                                    className="btn btn-primary"
+                                    onClick={() => setIsSubmitted(false)}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    Submit Another Request
+                                </motion.button>
+                            </motion.div>
+                        )}
                     </div>
                 </section>
             </div>
