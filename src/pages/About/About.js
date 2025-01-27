@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Footer from '../Landing/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 import './About.scss';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO/SEO';

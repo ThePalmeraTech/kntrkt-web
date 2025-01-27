@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Features.scss';
 import { Helmet } from 'react-helmet';
 import SEO from '../../components/SEO/SEO';
-import Footer from '../Landing/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 
 const Features = () => {
     const features = [

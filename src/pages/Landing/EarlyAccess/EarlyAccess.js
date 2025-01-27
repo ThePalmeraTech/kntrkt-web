@@ -5,6 +5,7 @@ import { countries } from 'country-data';
 import { motion } from 'framer-motion';
 import './EarlyAccess.scss';
 import SEO from '../../../components/SEO/SEO';
+import Footer from '../../../components/Footer/Footer';
 
 const EarlyAccess = () => {
     const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const EarlyAccess = () => {
 
     const [message, setMessage] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Map countries for the dropdown
     const countryOptions = countries.all.map((country) => ({
@@ -55,7 +57,8 @@ const EarlyAccess = () => {
         }
 
         try {
-            setMessage("Submitting...");
+            setIsLoading(true);
+            setMessage(""); // Limpiamos mensajes anteriores
             
             const formDataForSheet = new FormData();
             formDataForSheet.append('First Name', firstName);
@@ -72,12 +75,15 @@ const EarlyAccess = () => {
                 }
             );
 
+            await new Promise(resolve => setTimeout(resolve, 1500)); // Pequeño delay para mejor UX
             setFormData({ firstName: '', lastName: '', email: '', country: '' });
             setIsSubmitted(true);
             
         } catch (error) {
             console.error('Error:', error);
             setMessage("Sorry, there was an error. Please try again later.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -188,8 +194,23 @@ const EarlyAccess = () => {
                                             placeholder="Select your country"
                                         />
                                     </div>
-                                    <button type="submit" className="btn btn-primary">
-                                        Join Early Access
+                                    <button 
+                                        type="submit" 
+                                        className={`btn btn-primary ${isLoading ? 'loading' : ''}`}
+                                        disabled={isLoading}
+                                    >
+                                        {isLoading ? (
+                                            <motion.div className="loading-wrapper">
+                                                <motion.span
+                                                    animate={{ rotate: 360 }}
+                                                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                                    className="loading-spinner"
+                                                />
+                                                <span>Submitting...</span>
+                                            </motion.div>
+                                        ) : (
+                                            'Join Early Access'
+                                        )}
                                     </button>
                                 </form>
                             </motion.div>
@@ -235,6 +256,7 @@ const EarlyAccess = () => {
                         )}
                     </div>
                 </section>
+                <Footer />
             </div>
         </>
     );

@@ -105,6 +105,27 @@
                 transform: translateY(-2px);
                 box-shadow: 0 10px 20px rgba($primary-color, 0.3);
             }
+
+            &.loading {
+                background: darken($primary-color, 10%);
+                cursor: not-allowed;
+                
+                .loading-wrapper {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                }
+                
+                .loading-spinner {
+                    width: 20px;
+                    height: 20px;
+                    border: 2px solid rgba($primary-dark, 0.3);
+                    border-top-color: $primary-dark;
+                    border-radius: 50%;
+                    display: inline-block;
+                }
+            }
         }
     }
 }
@@ -147,5 +168,20 @@
 
     .btn {
         margin-top: 1rem;
+    }
+}
+
+.early-access-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    .early-access-section {
+        flex: 1;
+        // ... otros estilos existentes ...
+    }
+
+    footer {
+        margin-top: auto;  // Esto empujará el footer al fondo
     }
 } 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Footer from '../Landing/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 import './Calculator.scss';
 import { Helmet } from 'react-helmet';
 import SEO from '../../components/SEO/SEO';

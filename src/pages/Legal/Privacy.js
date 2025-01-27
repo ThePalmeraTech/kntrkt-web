@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO/SEO';
-import Footer from '../Landing/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 import './Legal.scss';
 
 const Privacy = () => {

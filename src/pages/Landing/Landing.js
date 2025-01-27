@@ -6,7 +6,7 @@ import LandingCalculator from './Calculator/LandingCalculator';
 import Testimonials from './Testimonials/Testimonials';
 import FAQ from './FAQ/FAQ';
 import CallToAction from './CallToAction/CallToAction';
-import Footer from './Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 import SEO from '../../components/SEO/SEO';
 import './Landing.scss';
 
